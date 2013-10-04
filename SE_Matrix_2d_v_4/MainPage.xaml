@@ -1,0 +1,159 @@
+﻿<phone:PhoneApplicationPage
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:UI="clr-namespace:Microsoft.Advertising.Mobile.UI;assembly=Microsoft.Advertising.Mobile.UI"
+    xmlns:Controls="clr-namespace:Coding4Fun.Toolkit.Controls;assembly=Coding4Fun.Toolkit.Controls"
+    x:Class="SE_Matrix_2d_v_4.MainPage"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="False">
+
+    <!--LayoutRoot представляет корневую сетку, где размещается все содержимое страницы-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+
+        <!-- ПРИМЕЧАНИЕ О ЛОКАЛИЗАЦИИ:
+            Чтобы локализовать отображаемые строки, скопируйте их значения в соответствующим образом названные
+            ключи в файле ресурсов нейтрального языка приложения (AppResources.resx), а затем
+            замените жестко заданное текстовое значение между кавычками атрибутов
+            на выражение привязки, указывающее на имя соответствующей строки.
+
+            Пример:
+
+                Text="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}"
+
+            Данная привязка указывает на строковый ресурс шаблона с именем "ApplicationTitle".
+
+            Добавление поддерживаемых языков на вкладку "Свойства проекта" создает
+            новый RESX-файл для каждого языка, в котором могут храниться переведенные значения
+            строк пользовательского интерфейса. Привязка в этих примерах вызывает отрисовку
+            значений атрибутов из RESX-файла, соответствующего
+            CurrentUICulture приложения во время выполнения.
+         -->
+
+        <!--Элемент управления Panorama-->
+        <phone:Panorama Title="">
+            <phone:Panorama.Background>
+                <ImageBrush />
+            </phone:Panorama.Background>
+
+            <!--Первый элемент Panorama-->
+            <phone:PanoramaItem >
+                <!--Тут создается и отображается матрица-->
+                <Grid x:Name="LayoutRootSecond" Background="Black" Margin="0,-32,-2,7" RenderTransformOrigin="0.500,0.500" Tap="Event_Grid_Tap_LayoutRoot"/>
+            </phone:PanoramaItem>
+
+            <!--Второй элемент Panorama-->
+            <phone:PanoramaItem>    
+                <Grid x:Name="LayoutRootThierd" Grid.Column="1" Background="Transparent" Margin="0, 0,-2,7" RenderTransformOrigin="0.500,0.500" >
+                    <ScrollViewer  HorizontalScrollBarVisibility="Auto"  >
+                        <Grid x:Name="Grid_SettingsRight" Grid.Column="1" Background="Transparent" Margin="0, 0,-2,7" RenderTransformOrigin="0.500,0.500" >
+                            <!-- Скорость падения змейки в мс/ Скорость смены символов в мс -->
+                            <TextBlock HorizontalAlignment="Left" Margin="28,3,0,0" TextWrapping="Wrap" Text="Скорость смены символов в мс" VerticalAlignment="Top" Width="352"/>
+                            <TextBox x:Name="TextBox_SppeedFrom" InputScope="Number" HorizontalAlignment="Left" Height="67" TextWrapping="Wrap" Text="20" VerticalAlignment="Top" Width="100" Margin="9,28,0,0"/>
+                            <TextBox x:Name="TextBox_SppeedTo" InputScope="Number" HorizontalAlignment="Left" Height="67" TextWrapping="Wrap" Text="40" VerticalAlignment="Top" Width="100" Margin="114,28,0,0"/>
+                            <Button x:Name="Button_SpeedApplay" Content=" Ok " HorizontalAlignment="Left" Height="65" Margin="288,30,0,0" VerticalAlignment="Top" Click="Event_Button_Click_SpeedApplay"/>
+
+                            <!-- Количество змеек в очереди -->
+                            <TextBlock HorizontalAlignment="Left" Margin="28,95,0,0" TextWrapping="Wrap" Text="Количество змеек в очереди" VerticalAlignment="Top" RenderTransformOrigin="-0.256,0.233" Width="352"/>
+                            <TextBox x:Name="TextBox_CountQueue" InputScope="Number" HorizontalAlignment="Left" Height="67" Margin="10,127,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="101" RenderTransformOrigin="0.49,-0.049"/>
+                            <Button x:Name="Button_CountQueue" Content=" Ok " HorizontalAlignment="Left" Margin="287,127,0,0" VerticalAlignment="Top" Click="Event_Button_Click_CountQueue" RenderTransformOrigin="1.474,0.483" Height="67"/>
+
+                            <!-- Количество змеек за нажатие -->
+                            <TextBlock HorizontalAlignment="Left" Margin="28,194,0,0" TextWrapping="Wrap" Text="Количество змеек за нажатие" VerticalAlignment="Top" Width="352"/>
+                            <TextBox x:Name="TextBox_СountSimultaneously" InputScope="Number" HorizontalAlignment="Left" Height="72" Margin="10,221,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="101"/>
+                            <Button x:Name="Button_СountSimultaneously" Content=" Ok " HorizontalAlignment="Left" Margin="288,221,0,0" VerticalAlignment="Top" Click="Event_Button_Click_СountSimultaneously" RenderTransformOrigin="1.474,0.483"/>
+
+                            <!-- Размер шрифта -->
+                            <TextBlock HorizontalAlignment="Left" Margin="27,293,0,0" TextWrapping="Wrap" Text="Размер шрифта (+ - [n])" VerticalAlignment="Top" Width="352"/>
+                            <TextBox x:Name="TextBox_FontSize" InputScope="Default" HorizontalAlignment="Left" Height="72" Margin="9,320,0,0" TextWrapping="Wrap" Text="-2" VerticalAlignment="Top" Width="101"/>
+                            <Button x:Name="Button_FontSize" Content=" Ok " HorizontalAlignment="Left" Margin="288,320,0,0" VerticalAlignment="Top" Click="Event_Button_Click_FontSize" RenderTransformOrigin="1.474,0.483"/>
+
+                            <!-- Количество смены символов в ячейке -->
+                            <TextBlock HorizontalAlignment="Left" Margin="28,392,0,0" TextWrapping="Wrap" Text="Количество смены символов" VerticalAlignment="Top" Width="352"/>
+                            <TextBox x:Name="TextBox_CountSymbol" InputScope="Number" HorizontalAlignment="Left" Height="72" Margin="10,419,0,0" TextWrapping="Wrap" Text="3" VerticalAlignment="Top" Width="101"/>
+                            <Button x:Name="Button_CountSymbol" Content=" Ok " HorizontalAlignment="Left" Margin="288,419,0,0" VerticalAlignment="Top" Click="Event_Button_Click_CountSymbol" RenderTransformOrigin="1.474,0.483"/>
+
+                            <!-- Сатрт / Стоп анимация -->
+                            <TextBlock x:Name="TextBlock_OnOff" HorizontalAlignment="Left" Margin="28,491,0,0" TextWrapping="Wrap" Text="Вкл/Выкл анимацию" VerticalAlignment="Top" Width="352"/>
+                            <ToggleButton x:Name="Button_Stop" Content="Stop" HorizontalAlignment="Left" Margin="214,523,0,0" VerticalAlignment="Top" Click="Event_Button_Click_Stop" Width="180"/>
+                            <ToggleButton x:Name="Button_Start" Content="Start" HorizontalAlignment="Left" Margin="10,523,0,0" VerticalAlignment="Top" Click="Event_Button_Click_Start" Width="180"/>
+                            
+                            <!-- Очистка экрана -->
+                            <TextBlock HorizontalAlignment="Left" Margin="28,605,0,0" TextWrapping="Wrap" Text="Хотите очистит экран?" VerticalAlignment="Top" Width="352"/>
+                            <Button Content=" YES " HorizontalAlignment="Left" Margin="10,632,0,0" VerticalAlignment="Top" Width="371" Click="Event_Button_Click_Clear"/>
+
+                            <!-- Размер клетки для символа -->
+                            <TextBlock HorizontalAlignment="Left" Margin="27,709,0,0" TextWrapping="Wrap" Text="Размер клетки для символа" VerticalAlignment="Top" Width="369"/>
+                            <TextBox x:Name="TextBox_ElementSize" InputScope="Default" HorizontalAlignment="Left" Height="72" Margin="10,734,0,-17" TextWrapping="Wrap" Text="-6" VerticalAlignment="Top" Width="101"/>
+                            <Button Content="Ok" HorizontalAlignment="Left" Margin="286,736,0,-19" VerticalAlignment="Top" Width="93" Click="Event_Button_Click_ElementSize"/>
+
+                            <!-- Длина змейки -->
+                            <TextBlock HorizontalAlignment="Left" Margin="27,809,0,0" TextWrapping="Wrap" Text="Длина змейки от: до:" VerticalAlignment="Top" Width="369"/>
+                            <TextBox x:Name="TextBox_MinLength" InputScope="Number" HorizontalAlignment="Left" Height="72" Margin="10,834,0,-17" TextWrapping="Wrap" Text="3" VerticalAlignment="Top" Width="101"/>
+                            <TextBox x:Name="TextBox_MaxLength" InputScope="Number" HorizontalAlignment="Left" Height="67" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="100" Margin="114,834,0,-17"/>
+                            <Button Content="Ok" HorizontalAlignment="Left" Margin="286,836,0,-19" VerticalAlignment="Top" Width="93" Click="Event_Button_Click_MaxLength"/>
+                            
+                            <!-- Горизонтакльное /  вертикальное расположение -->
+                            <TextBlock HorizontalAlignment="Left" Margin="28,905,0,0" TextWrapping="Wrap" Text="Повернуть матрицу" VerticalAlignment="Top" Width="352"/>
+                            <ToggleButton x:Name="ToggleButton_Turn" Content="Вертикально" HorizontalAlignment="Left" Margin="10,932,0,0" VerticalAlignment="Top" Width="371" Click="Event_Button_Click_Turn"/>                        
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
+                    
+            </phone:PanoramaItem>
+
+            <!--Третий элемент Panorama-->
+            <phone:PanoramaItem >
+                <Grid x:Name="LayoutRoot123" Background="Transparent" Margin="0,-32,-2,7" RenderTransformOrigin="0.500,0.500" >
+                    <ScrollViewer HorizontalScrollBarVisibility="Hidden" Margin="0,26,0,0" >                     
+                        <Grid Margin="0,0,0,0" Height="984" >
+                            <!-- Выбор языка символов -->
+                            <StackPanel Margin="0,0,0,649" >
+                                <!-- Всплывающее окно -->
+                                <Popup  Name="Popup_ButtonDropDownSelectLanguage" Margin="0,0,10,0">
+                                    <StackPanel Margin="10,50,0,0" Background="DarkGray"  Width="393" Name="StackPanel_ButtonDropDownSelectLanguage">
+                                    </StackPanel>
+                                </Popup>
+                                <TextBlock TextWrapping="Wrap" Text="Выбирете язык символов"/>
+                                <!-- Кнопка, отображающая выбранный язык. При нажатии на нее всплывает окно -->
+                                <Button Margin="0,10,10,0" x:Name="Button_SelectLanguage" Content="Китайский"  Click="Event_Button_Click_SelectLanguage" Height="74" />
+                            </StackPanel>
+                            
+                            <!-- Элемент выбора цвета. Codding4Fun -->
+                            <Controls:ColorPicker x:Name="ColorPicker" VerticalAlignment="Top" Height="360" Margin="10,154,10,0"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="10,114,0,0" TextWrapping="Wrap" Text="Выбирете цвет" VerticalAlignment="Top" Width="412" Height="35"/>
+                           
+                            <!-- Выбор фона матрицы -->
+                            <Button x:Name="Button_BackgroundColor" Content="Цвет фона" HorizontalAlignment="Left" Margin="10,533,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.404,-0.757" Width="412" Click="Event_Button_Click_ChangeBackground"/>
+                            
+                            <!-- Выбор цвета первого символа -->
+                            <Button x:Name="Button_FirstSymbolColor" Content="Цвет первого символа" HorizontalAlignment="Left" Margin="10,605,0,0" VerticalAlignment="Top" Width="412" Click="Event_Button_Click_FirstSymbolColor"/>
+                            
+                            <!-- Выбор цвета градиента змейки -->
+                            <TextBlock HorizontalAlignment="Left" Margin="10,682,0,0" TextWrapping="Wrap" Text="Выберите цвета градиента змейки" VerticalAlignment="Top" RenderTransformOrigin="-0.915,-1.222" Width="412"/>
+                            <Button x:Name="Button_GradientFrom" Content="От" HorizontalAlignment="Left" Margin="10,714,0,0" VerticalAlignment="Top" Width="180" Click="Event_Button_Click_GradientFrom"/>
+                            <Button x:Name="Button_GradientTo" Content="До" HorizontalAlignment="Left" Margin="245,714,0,0" VerticalAlignment="Top" Width="180" Click="Event_Button_Click_GradientTo"/>
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
+            </phone:PanoramaItem>
+        </phone:Panorama>
+
+        <!--Раскомментируйте, чтобы увидеть сетку выравнивания и выровнять
+            элементы управления по общим границам.  Верхнее поле изображения равно -32 пикселя, чтобы
+            осталось место для области уведомлений. Установите его равным 0 (или вообще удалите поле),
+            если область уведомлений скрыта.
+
+            Перед сдачей приложения удалите этот код XAML и само изображение.-->
+        <!--<Image Source="/Assets/AlignmentGrid.png" VerticalAlignment="Top" Height="800" Width="480" Margin="0" Grid.Row="0" Grid.RowSpan="2" IsHitTestVisible="False" />-->
+
+    </Grid>
+</phone:PhoneApplicationPage>
